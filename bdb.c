@@ -11,12 +11,28 @@
 
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 
+/*
+ * uint32_t is a numeric type that guarantees to be 32 bits,
+ * unsigned, meaning that the range of values goes from 0 to 2^32-1
+ *                                                          (4.294.967.295)
+ *
+ * 'Bout the row:
+ * column	   size (bytes)	offset
+ * id	       4	          0
+ * username	 32	          4
+ * email	   255	        36
+ * total: 291
+*/
 struct Row_t {
   uint32_t id;
   char username[COLUMN_USERNAME_SIZE];
   char email[COLUMN_EMAIL_SIZE];
 };
 typedef struct Row_t Row;
+
+const uint32_t ID_SIZE = size_of_attribute(Row, id);
+const uint32_t USERNAME_SIZE = size_of_attribute(Row, username);
+const uint32_t EMAIL_SIZE = size_of_attribute(Row, email);
 
 struct Statement_t {
   StatementType type;
