@@ -1,0 +1,9 @@
+Query goes into the frontend API
+ - tokenize it
+ - parse it
+ - code generator (bytecode)
+from here bytecode goes to the backend API
+ - virtual machine: bytecode as instructions; performs operations
+ - B-tree: reads and writes disk via pager
+ - pager: disk io via os API, caching
+ - os API: consist the file API of os which app has been complied  for
