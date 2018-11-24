@@ -9,6 +9,8 @@
 #define COLUMN_USERNAME_SIZE 32
 #define COLUMN_EMAIL_SIZE 255
 
+#define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
+
 struct Row_t {
   uint32_t id;
   char username[COLUMN_USERNAME_SIZE];
