@@ -2,22 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include "input_buffer_str.h"
 #include "enums.h"
 
-/*
-const uint32_t COLUMN_USERNAME_SIZE = 32;
-const uint32_t COLUMN_EMAIL_SIZE = 32;
+#define COLUMN_USERNAME_SIZE 32
+#define COLUMN_EMAIL_SIZE 255
+
 struct Row_t {
   uint32_t id;
   char username[COLUMN_USERNAME_SIZE];
-  char username[COLUMN_EMAIL_SIZE];
+  char email[COLUMN_EMAIL_SIZE];
 };
 typedef struct Row_t Row;
-*/
+
 struct Statement_t {
   StatementType type;
-  //Row row_to_insert;
+  Row row_to_insert;
 };
 typedef struct Statement_t Statement;
 
