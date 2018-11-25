@@ -7,7 +7,7 @@
 #include "input_buffer_str.h"
 #include "enums.h"
 #include "row.h"
-
+#include "table.h"
 
 struct Statement_t {
   StatementType type;
