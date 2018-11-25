@@ -8,12 +8,7 @@
 #include "enums.h"
 #include "row.h"
 #include "table.h"
-
-struct Statement_t {
-  StatementType type;
-  Row row_to_insert;
-};
-typedef struct Statement_t Statement;
+#include "execute_fncs.h"
 
 InputBuffer* new_input_buffer() {
   InputBuffer* input_buffer = malloc(sizeof(InputBuffer));
@@ -59,17 +54,6 @@ PrepareResult prepare_statement(InputBuffer* input_buffer,
   }
 
   return PREPARE_UNRECOGNIZED_STATEMENT;
-}
-
-void execute_statement(Statement* statement) {
-  switch (statement->type) {
-    case (STATEMENT_INSERT):
-      printf("This is to do an insert.\n");
-      break;
-    case (STATEMENT_SELECT):
-      printf("This is to do a select.\n");
-      break;
-  }
 }
 
 void print_prompt() { printf("|tAlkToME|> "); }
