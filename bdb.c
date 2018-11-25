@@ -3,36 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+
 #include "input_buffer_str.h"
 #include "enums.h"
+#include "row.h"
 
-#define COLUMN_USERNAME_SIZE 32
-#define COLUMN_EMAIL_SIZE 255
-
-#define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
-
-/*
- * uint32_t is a numeric type that guarantees to be 32 bits,
- * unsigned, meaning that the range of values goes from 0 to 2^32-1
- *                                                          (4.294.967.295)
- *
- * 'Bout the row:
- * column	   size (bytes)	offset
- * id	       4	          0
- * username	 32	          4
- * email	   255	        36
- * total: 291
-*/
-struct Row_t {
-  uint32_t id;
-  char username[COLUMN_USERNAME_SIZE];
-  char email[COLUMN_EMAIL_SIZE];
-};
-typedef struct Row_t Row;
-
-const uint32_t ID_SIZE = size_of_attribute(Row, id);
-const uint32_t USERNAME_SIZE = size_of_attribute(Row, username);
-const uint32_t EMAIL_SIZE = size_of_attribute(Row, email);
 
 struct Statement_t {
   StatementType type;
@@ -62,7 +37,6 @@ PrepareResult prepare_statement(InputBuffer* input_buffer,
   if (strncmp(input_buffer->buffer, "insert", 6) == 0) {
     statement->type = STATEMENT_INSERT;
 
-/*
     int args_asssigned = sscanf(
       input_buffer->buffer,
       "insert %d %s %s",
@@ -72,9 +46,10 @@ PrepareResult prepare_statement(InputBuffer* input_buffer,
     );
 
     if (args_asssigned < 3) {
-      return PREPARE_SYNTAX_ERROR;
+    //  return PREPARE_SYNTAX_ERROR;
+      exit(EXIT_FAILURE);
     }
-*/
+
     return PREPARE_SUCCESS;
   }
 
