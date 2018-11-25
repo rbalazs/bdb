@@ -41,8 +41,7 @@ PrepareResult prepare_statement(InputBuffer* input_buffer,
     );
 
     if (args_asssigned < 3) {
-    //  return PREPARE_SYNTAX_ERROR;
-      exit(EXIT_FAILURE);
+      return PREPARE_SYNTAX_ERROR;
     }
 
     return PREPARE_SUCCESS;
@@ -83,6 +82,7 @@ void read_input(InputBuffer* input_buffer) {
 
 ///////////////////////MAIN///////////////////
 int main(int argc, char* argv[]) {
+  Table* table = new_table();
   InputBuffer* input_buffer = new_input_buffer();
   while (true) {
     print_prompt();
@@ -102,12 +102,15 @@ int main(int argc, char* argv[]) {
     switch (prepare_statement(input_buffer, &statement)) {
       case (PREPARE_SUCCESS):
         break;
+      case(PREPARE_SYNTAX_ERROR):
+        printf("Syntax error!\n");
+        continue;
       case (PREPARE_UNRECOGNIZED_STATEMENT):
         printf("Keyword not found at start if '%s'.\n", input_buffer->buffer);
         continue;
     }
 
-    execute_statement(&statement);
+    execute_statement(&statement, table);
     printf("Donezd.\n");
   }
 }
