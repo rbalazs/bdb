@@ -112,8 +112,10 @@ int main(int argc, char* argv[]) {
 
     switch (execute_statement(&statement, table)) {
       case (EXECUTE_SUCCESS):
+        printf(": )\n");
         break;
       case (EXECUTE_TABLE_FULL):
+        printf("No more space left in table.\n");
         break;
     }
   }
