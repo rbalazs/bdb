@@ -31,6 +31,21 @@ const uint32_t ROW_SIZE =
   + size_of_attribute(Row, username)
   + size_of_attribute(Row, email);
 
+const uint32_t USERNAME_OFFSET =
+  (0 + size_of_attribute(Row, id)) + size_of_attribute(Row, username);
+
 const uint32_t EMAIL_OFFSET =
   (0 + size_of_attribute(Row, id)) // username offset
   + size_of_attribute(Row, username);
+
+void serialize_row(Row* source, void* destination) {
+  memcpy(destination + 0, &(source->id), ID_SIZE);
+  memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
+  memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
+}
+
+void deserialize_row (void* source, Row* destination) {
+  memcpy(&(destination->id), source + 0, ID_SIZE);
+  memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
+  memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
+}
