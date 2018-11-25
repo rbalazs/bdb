@@ -110,7 +110,11 @@ int main(int argc, char* argv[]) {
         continue;
     }
 
-    execute_statement(&statement, table);
-    printf("Donezd.\n");
+    switch (execute_statement(&statement, table)) {
+      case (EXECUTE_SUCCESS):
+        break;
+      case (EXECUTE_TABLE_FULL):
+        break;
+    }
   }
 }
