@@ -32,7 +32,7 @@ const uint32_t ROW_SIZE =
   + size_of_attribute(Row, email);
 
 const uint32_t USERNAME_OFFSET =
-  (0 + size_of_attribute(Row, id)) + size_of_attribute(Row, username);
+  (0 + size_of_attribute(Row, id));
 
 const uint32_t EMAIL_OFFSET =
   (0 + size_of_attribute(Row, id)) // username offset
