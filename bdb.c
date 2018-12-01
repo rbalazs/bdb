@@ -55,7 +55,7 @@ PrepareResult prepare_statement(InputBuffer* input_buffer,
   return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-void print_prompt() { printf("|tAlkToME|> "); }
+void print_prompt() { printf("bdb > "); }
 
 void read_input(InputBuffer* input_buffer) {
   /*
