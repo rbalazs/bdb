@@ -39,4 +39,21 @@ describe 'database' do
     result = run_script(script)
     expect(result[-2]).to eq('bdb > No more space left in table.')
   end
+
+  it 'allows inserting strings that are the maximum length' do
+    long_username = "u"*32
+    long_email = "e"*255
+    script = [
+      "insert 1 #{long_username} #{long_email}",
+      "select",
+      ".die",
+    ]
+    result = run_script(script)
+    expect(result).to match_array([
+      "bdb > .",
+      "bdb > (1, #{long_username}, #{long_email})",
+      ".",
+      "bdb > ",
+    ])
+  end
 end

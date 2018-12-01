@@ -17,8 +17,8 @@
 
 struct Row_t {
   uint32_t id; // unsigned 32 bit integer
-  char username[COLUMN_USERNAME_SIZE]; // varchar(32)
-  char email[COLUMN_EMAIL_SIZE]; // varchar(255)
+  char username[COLUMN_USERNAME_SIZE + 1]; // varchar(32) plus null char
+  char email[COLUMN_EMAIL_SIZE + 1]; // varchar(255) plus null char
 };
 
 typedef struct Row_t Row;
