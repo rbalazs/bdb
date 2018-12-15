@@ -24,10 +24,10 @@ describe 'database' do
       ".die",
     ])
     expect(result).to match_array([
-      "bdb > .",
-      "bdb > (1, user1, person1@example.com)",
+      ">",
       ".",
-      "bdb > ",
+      ">(1, user1, person1@example.com)",
+      ">."
     ])
   end
 
@@ -37,7 +37,7 @@ describe 'database' do
     end
     script << ".die"
     result = run_script(script)
-    expect(result[-2]).to eq('bdb > No more space left in table.')
+    expect(result[-2]).to eq('>No more space left in table.')
   end
 
   it 'allows inserting strings that are the maximum length' do
@@ -50,10 +50,26 @@ describe 'database' do
     ]
     result = run_script(script)
     expect(result).to match_array([
-      "bdb > .",
-      "bdb > (1, #{long_username}, #{long_email})",
+      ">",
       ".",
-      "bdb > ",
+      ">(1, #{long_username}, #{long_email})",
+      ">.",
+    ])
+  end
+
+  it 'prints error message if strings are too long' do
+    long_username = "a"*33
+    long_email = "a"*256
+    script = [
+      "insert 1 #{long_username} #{long_email}",
+      "select",
+      ".die",
+    ]
+    result = run_script(script)
+    expect(result).to match_array([
+      ">",
+      ">String is too long!",
+      ">.",
     ])
   end
 end

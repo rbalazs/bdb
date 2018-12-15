@@ -7,7 +7,8 @@ typedef enum MetaCommandResult_t MetaCommandResult;
 enum PrepareResult_t {
   PREPARE_SUCCESS,
   PREPARE_UNRECOGNIZED_STATEMENT,
-  PREPARE_SYNTAX_ERROR
+  PREPARE_SYNTAX_ERROR,
+  PREPARE_STRING_TOO_LONG
 };
 typedef enum PrepareResult_t PrepareResult;
 
