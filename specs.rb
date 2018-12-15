@@ -72,4 +72,19 @@ describe 'database' do
       ">.",
     ])
   end
+
+  it 'prints an error message if id is negative' do
+    script = [
+      "insert -1 cstack foo@bar.com",
+      "select",
+      ".die",
+    ]
+    result = run_script(script)
+    expect(result).to match_array([
+      ">",
+      ">ID must be positive.",
+      ">.",
+    ])
+  end
+
 end
