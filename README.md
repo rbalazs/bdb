@@ -2,4 +2,5 @@
 
 All credits to: https://cstack.github.io/db_tutorial/
 
-## Running the tests: `docker-compose run tester rspec specs.rb`
+## Running the tests:
+`docker-compose run tester rspec specs.rb`
