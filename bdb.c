@@ -4,21 +4,12 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "input_buffer_str.h"
+#include "input_buffer.h"
 #include "enums.h"
 #include "row.h"
 #include "table.h"
 #include "execute_result.h"
 #include "prepare_result.h"
-
-InputBuffer* new_input_buffer() {
-  InputBuffer* input_buffer = malloc(sizeof(InputBuffer));
-  input_buffer->buffer = NULL;
-  input_buffer->buffer_length = 0;
-  input_buffer->input_length = 0;
-
-  return input_buffer;
-}
 
 MetaCommandResult do_meta_command(InputBuffer* input_buffer) {
   if (strcmp(input_buffer->buffer, ".die") == 0) {
