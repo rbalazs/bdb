@@ -3,18 +3,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
 
+#include "config.h"
 #include "enums.h"
 #include "input_buffer.h"
 #include "meta_command_result.h"
 #include "row.h"
+#include "pager.h"
 #include "table.h"
 #include "execute_result.h"
 #include "prepare_result.h"
 #include "basic_io.h"
 
 int main(int argc, char* argv[]) {
-  Table* table = new_table();
+  Table* table = init("/dev/null"); // TODO
   InputBuffer* input_buffer = new_input_buffer();
 
   // Main REPL.
