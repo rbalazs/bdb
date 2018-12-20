@@ -87,4 +87,25 @@ describe 'database' do
     ])
   end
 
+ # Test for persistance.
+
+  it 'keeps data after closing connection' do
+    result1 = run_script([
+      "insert 1 u1 person1@example.com",
+      ".die",
+    ])
+    expect(result1).to match_array([
+      ">",
+      ">."
+    ])
+    result2 = run_script([
+      "select",
+      ".die",
+    ])
+    expect(result2).to match_array([
+      ">(1, u1, person1@example.com)",
+      ">.",
+      ">",
+    ])
+  end
 end
