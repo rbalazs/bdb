@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,62 +10,23 @@
 #include "config.h"
 #include "enums.h"
 #include "input_buffer.h"
-#include "meta_command_result.h"
 #include "row.h"
 #include "pager.h"
 #include "table.h"
 #include "execute_result.h"
 #include "prepare_result.h"
+#include "meta_command_result.h"
 #include "basic_io.h"
 
-/*
- - flushes the page cache to disk
- - closes the database file
- - frees the memory for the Pager and Table data structures
-*/
-void db_close(Table* table) {
-  Pager* pager = table->pager;
-  uint32_t num_full_pages = table->num_rows / ROWS_PER_PAGE;
 
-  for (uint32_t i = 0; i < num_full_pages; i++) {
-    if (pager->pages[i] == NULL) {
-      continue;
-    }
-    pager_flush(pager, i, PAGE_SIZE);
-    free(pager->pages[i]);
-    pager->pages[i] = NULL;
-  }
-
-  // Temp. solution for partial of pages.
-  uint32_t num_additional_rows = table->num_rows % ROWS_PER_PAGE;
-  if (num_additional_rows > 0) {
-    uint32_t page_num = num_full_pages;
-    if (pager->pages[page_num] != NULL) {
-      pager_flush(pager, page_num, num_additional_rows * ROW_SIZE);
-      free(pager->pages[page_num]);
-      pager->pages[page_num] = NULL;
-    }
-  }
-
-  // Close disk io.
-  int result = close(pager->file_descriptor);
-  if (result == -1) {
-    printf("Error closing file.\n");
+int main(int argc, char* argv[]) {
+  if (argc < 2) {
+    printf("Missing database file name!\n");
     exit(EXIT_FAILURE);
   }
 
-  for (uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
-    void* page = pager->pages[i];
-    if (page) {
-      free(page);
-      pager->pages[i] = NULL;
-    }
-  }
-  free(pager);
-}
-
-int main(int argc, char* argv[]) {
-  Table* table = init("/dev/null"); // TODO
+  char* filename = argv[1];
+  Table* table = init(filename);
   InputBuffer* input_buffer = new_input_buffer();
 
   // Main REPL.
@@ -73,7 +35,7 @@ int main(int argc, char* argv[]) {
     read_input_from_prompt(input_buffer);
 
     if (input_buffer->buffer[0] == '.') {
-      switch (do_meta_command(input_buffer)) {
+      switch (do_meta_command(input_buffer, table)) {
         case (META_COMMAND_SUCCESS):
           continue;
         case (META_COMMAND_UNRECOGNIZED_COMMAND):
