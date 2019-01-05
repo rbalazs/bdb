@@ -12,6 +12,7 @@ Pager* pager_open (const char* filename) {
       O_RDWR | O_CREAT, // RW and creates if not exists.
       S_IWUSR | S_IRUSR // User read and user write perms.
   );
+
   if (fd == -1) {
     printf("Unable to open file\n");
     exit(EXIT_FAILURE);
