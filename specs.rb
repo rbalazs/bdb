@@ -1,17 +1,19 @@
 # docker-compose run tester rspec specs.rb
 # ; )
 
+require "securerandom"
+
 describe 'database' do
-  def run_script(commands)
+  def run_script(commands, database_name = SecureRandom.hex)
     raw_output = nil
-    IO.popen("./db mydb.db", "r+") do |pipe|
+
+    IO.popen("./db data/" + database_name, "r+") do |pipe|
       commands.each do |command|
         pipe.puts command
       end
 
       pipe.close_write
 
-      # Read entire output
       raw_output = pipe.gets(nil)
     end
     raw_output.split("\n")
@@ -87,13 +89,15 @@ describe 'database' do
     ])
   end
 
+
  # Test for persistance.
 
   it 'keeps data after closing connection' do
+    random_database_name = SecureRandom.hex
     result1 = run_script([
       "insert 1 u1 person1@example.com",
       ".die",
-    ])
+    ], random_database_name)
     expect(result1).to match_array([
       ">",
       ">."
@@ -101,10 +105,10 @@ describe 'database' do
     result2 = run_script([
       "select",
       ".die",
-    ])
+    ], random_database_name)
     expect(result2).to match_array([
       ">(1, u1, person1@example.com)",
-      ">.",
+      ".",
       ">",
     ])
   end

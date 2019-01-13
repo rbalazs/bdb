@@ -60,7 +60,10 @@ void db_close(Table* table) {
   }
 
   // Temp. solution for partial of pages.
-  uint32_t num_additional_rows = table->num_rows % ROWS_PER_PAGE;
+  // Why the parentheses?
+  // Hell, operator precedence, #define, ... took me two hours..
+  uint32_t num_additional_rows = table->num_rows % (ROWS_PER_PAGE);
+
   if (num_additional_rows > 0) {
     uint32_t page_num = num_full_pages;
     if (pager->pages[page_num] != NULL) {
