@@ -1,3 +1,4 @@
 db
 .idea/
 data/*
+cmake-build-debug/
