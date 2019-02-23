@@ -18,7 +18,6 @@
 #include "meta_command_result.h"
 #include "basic_io.h"
 
-
 int main(int argc, char* argv[]) {
   if (argc < 2) {
     printf("Missing database file name!\n");
