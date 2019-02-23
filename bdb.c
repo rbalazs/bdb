@@ -17,7 +17,6 @@
 #include "row.h"
 #include "pager.h"
 #include "table.h"
-#include "cursors.h"
 #include "execute_result.h"
 #include "prepare_result.h"
 #include "meta_command_result.h"
