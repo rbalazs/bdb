@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -6,6 +8,8 @@
 #include <stdint.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#include <sys/stat.h>
 
 #include "config.h"
 #include "enums.h"
