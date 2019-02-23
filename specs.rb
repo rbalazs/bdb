@@ -1,6 +1,3 @@
-# docker-compose run tester rspec specs.rb
-# ; )
-
 require "securerandom"
 
 describe 'database' do
@@ -91,7 +88,6 @@ describe 'database' do
 
 
  # Test for persistance.
-
   it 'keeps data after closing connection' do
     random_database_name = SecureRandom.hex
     result1 = run_script([
