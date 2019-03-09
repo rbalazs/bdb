@@ -3,7 +3,7 @@ services:
   tester:
     container_name: tester
     build:
-      context: ./docker/bin/rspec
+      context: .docker/bin/rspec
     volumes:
       - $PWD:/app
     working_dir: /app
