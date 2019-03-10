@@ -13,6 +13,7 @@
 
 #include "config.h"
 #include "enums.h"
+#include "btree.h"
 #include "input_buffer.h"
 #include "row.h"
 #include "pager.h"
