@@ -1,5 +1,3 @@
-#define PAGE_SIZE 4096
-
 struct Pager_t {
   int file_descriptor;
   uint32_t file_length;
