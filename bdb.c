@@ -13,9 +13,10 @@
 
 #include "config.h"
 #include "enums.h"
+
 #include "btree.h"
-#include "input_buffer.h"
 #include "row.h"
+#include "input_buffer.h"
 #include "pager.h"
 #include "table.h"
 #include "execute_result.h"

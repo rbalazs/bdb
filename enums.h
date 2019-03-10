@@ -18,3 +18,10 @@ enum StatementType_t {
   STATEMENT_SELECT
 };
 typedef enum StatementType_t StatementType;
+
+enum NodeType_t {
+    NODE_INTERNAL,
+    NODE_LEAF
+};
+
+typedef enum NodeType_t NodeType;
