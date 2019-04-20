@@ -88,12 +88,16 @@ const uint32_t LEAF_NODE_MAX_CELLS =
         + size_of_attribute(Row, username)
         + size_of_attribute(Row, email);
 
-
-
 const uint32_t USERNAME_OFFSET =
         (0 + size_of_attribute(Row, id));
 const uint32_t EMAIL_OFFSET =
         (0 + size_of_attribute(Row, id)) // username offset
         + size_of_attribute(Row, username);
 
+uint32_t* leaf_node_num_cells(void* node) {
+  return node + LEAF_NODE_KEY_OFFSET;
+}
 
+uint32_t* leaf_node_cell(void* node, uint32_t cell_num) {
+  return node + LEAF_NODE_HEADER_SIZE + cell_num + LEAF_NODE_KEY_SIZE;
+}
