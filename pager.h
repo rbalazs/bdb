@@ -34,7 +34,7 @@ Pager* pager_open (const char* filename) {
   return pager;
 }
 
-void pager_flush (Pager* pager, uint32_t page_num, uint32_t size) {
+void pager_flush (Pager* pager, uint32_t page_num) {
   if (pager->pages[page_num] == NULL) {
     printf("Tried to flush null page\n");
     exit(EXIT_FAILURE);
@@ -52,7 +52,7 @@ void pager_flush (Pager* pager, uint32_t page_num, uint32_t size) {
     }
 
     ssize_t bytes_written =
-      write(pager->file_descriptor, pager->pages[page_num], size);
+      write(pager->file_descriptor, pager->pages[page_num], PAGE_SIZE);
 
     if (bytes_written == -1) {
       printf("Error writing: %d\n", errno);
